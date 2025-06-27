@@ -1,0 +1,27 @@
+services:
+  historial_tareas_php-fpm:
+    build: docker/php-fpm
+    networks:
+      - api-tareas_intranet
+      - intranet
+    volumes:
+      - ./:/var/www/html
+
+  historial_tareas_apache:
+    build:
+      context: docker/apache
+      args:
+          PHP_FPM_URL: "historial_tareas_php-fpm"
+    ports:
+      - "8002:80"
+    networks:
+      - api-tareas_intranet
+      - intranet
+    volumes:
+      - ./public:/var/www/html/public
+
+networks:
+  api-tareas_intranet:
+    external: true
+  intranet:
+    driver: bridge
