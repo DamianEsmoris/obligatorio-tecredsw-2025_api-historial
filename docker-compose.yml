@@ -1,6 +1,6 @@
 services:
   historial_tareas_php-fpm:
-    build: docker/php-fpm
+    build: docker/dev/php-fpm
     networks:
       - api-tareas_intranet
       - intranet
@@ -9,7 +9,7 @@ services:
 
   historial_tareas_apache:
     build:
-      context: docker/apache
+      context: docker/dev/apache
       args:
           PHP_FPM_URL: "historial_tareas_php-fpm"
     ports:
